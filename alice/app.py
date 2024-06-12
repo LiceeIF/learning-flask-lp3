@@ -8,6 +8,9 @@ lista_produtos = [
 
 app = Flask(__name__)
 
+# todo aplicativo tem essa dupla:
+# rota e função
+
 @app.route("/")
 def home():
     return "<h1>Home</h1>"
@@ -23,7 +26,7 @@ def produtos():
 @app.route("/produtos/<nome>")
 def produto(nome):
     for produto in lista_produtos:
-        if produto["nome"] == nome:
-            return f"Nome: {produto['nome']}, {produto['descricao']}"
-    
+        if produto["nome"].lower() == nome.lower():
+            return render_template("produto.html", produto=produto)
+        
     return "produto não encontrado"
