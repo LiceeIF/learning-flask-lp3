@@ -1,0 +1,11 @@
+{% extends "base2.html" %}
+
+{% block title %} Verificar CPF {% endblock %}
+
+{% block content %}
+<h1>Validar CPF</h1>
+<form action="/validarcpf" method="POST">
+    <input type="text" name="cpf" id="cpf" required> 
+    <button type="submit">Validar</button>
+</form>
+{% endblock %}

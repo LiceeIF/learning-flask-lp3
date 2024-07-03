@@ -1,0 +1,11 @@
+{% extends "base2.html" %}
+
+{% block title %} Verificar {% endblock %}
+
+{% block content %}
+<h1>Validar CNPJ</h1>
+<form action="/validarcnpj" method="POST">
+    <input type="text" name="cnpj" id="cnpj" required> 
+    <button type="submit">Validar</button>
+</form>
+{% endblock %}
