@@ -73,16 +73,44 @@ def salvar_produto():
 
     return redirect(url_for("produtos"))
 
-@app.route("/gerarcpf")
+@app.route("/gerar-cpf")
 def gerar_cpf():
     cpf = CPF()
     new_cpf = cpf.generate()
     return render_template('gerar-cpf.html', show_cpf=new_cpf)
 
-@app.route("/gerarcnpj")
+@app.route("/validar-cpf")
+def validar_cpf_form():
+    return render_template('validar-cpf.html')
+
+@app.route("/validar-cpf", methods=['POST'])
+def validar_cpf():
+    cpf_validate = request.form['cpf']
+    cpf = CPF()
+    if cpf.validate(cpf_validate):
+        result = {"status":"CPF Válido","info":cpf_validate}
+    else:
+        result = {"status":"CPF Inválido","info":cpf_validate}
+    return render_template('validar-result.html',result=result)
+
+@app.route("/gerar-cnpj")
 def gerar_cnpj():
-    cnpj = CNPJ()
-    new_cnpj = cnpj.generate()
+    cnpj=CNPJ()
+    new_cnpj=cnpj.generate()
     return render_template('gerar-cnpj.html', show_cnpj=new_cnpj)
+
+@app.route("/validar-cnpj")
+def cnpj_form():
+    return render_template('validar-cnpj.html')
+
+@app.route("/validar-cnpj", methods=['POST'])
+def validar_cnpj():
+    cnpj_validate = request.form['cnpj']
+    cnpj = CNPJ()
+    if cnpj.validate(cnpj_validate):
+        result = {"status":"CNPJ Válido","info":cnpj_validate}
+    else:
+        result = {"status":"CNPJ Inválido","info":cnpj_validate}
+    return render_template('validar-result.html',result=result)
 
 app.run(port=5001)
